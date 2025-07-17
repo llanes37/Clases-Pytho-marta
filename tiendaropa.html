@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tienda de Ropa</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #f8f9fa; }
+    .producto { transition: transform 0.2s; }
+    .producto:hover { transform: scale(1.03); }
+    .carrito { position: fixed; top: 0; right: 0; width: 300px; height: 100%; background: white; border-left: 1px solid #ddd; padding: 1rem; overflow-y: auto; display: none; z-index: 1050; }
+    .carrito-header { font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+
+  <div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="fw-bold">👕 Tienda de Ropa</h1>
+      <button class="btn btn-outline-dark" onclick="toggleCarrito()">🛒 Carrito (<span id="contadorCarrito">0</span>)</button>
+    </div>
+
+    <div class="row" id="productosContainer">
+      <!-- Productos se insertan aquí dinámicamente -->
+    </div>
+  </div>
+
+  <!-- Carrito Lateral -->
+  <div class="carrito shadow" id="carrito">
+    <div class="carrito-header">🛍️ Tu Carrito</div>
+    <ul class="list-group mb-3" id="listaCarrito"></ul>
+    <p class="fw-bold">Total: <span id="totalCarrito">0</span> €</p>
+    <button class="btn btn-danger w-100" onclick="vaciarCarrito()">Vaciar Carrito</button>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const productos = [
+      { id: 1, nombre: "Camiseta blanca", precio: 15, imagen: "https://via.placeholder.com/300x300?text=Camiseta+Blanca" },
+      { id: 2, nombre: "Sudadera negra", precio: 30, imagen: "https://via.placeholder.com/300x300?text=Sudadera+Negra" },
+      { id: 3, nombre: "Pantalón vaquero", precio: 40, imagen: "https://via.placeholder.com/300x300?text=Pantalon+Vaquero" },
+      { id: 4, nombre: "Chaqueta", precio: 50, imagen: "https://via.placeholder.com/300x300?text=Chaqueta" }
+    ];
+
+    const carrito = [];
+
+    function renderProductos() {
+      const contenedor = document.getElementById("productosContainer");
+      productos.forEach(p => {
+        contenedor.innerHTML += `
+          <div class="col-md-3 mb-4">
+            <div class="card producto shadow-sm">
+              <img src="${p.imagen}" class="card-img-top" alt="${p.nombre}">
+              <div class="card-body">
+                <h5 class="card-title">${p.nombre}</h5>
+                <p class="card-text">${p.precio} €</p>
+                <button class="btn btn-primary w-100" onclick="agregarAlCarrito(${p.id})">Añadir al carrito</button>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function agregarAlCarrito(id) {
+      const producto = productos.find(p => p.id === id);
+      carrito.push(producto);
+      actualizarCarrito();
+    }
+
+    function actualizarCarrito() {
+      const lista = document.getElementById("listaCarrito");
+      const total = document.getElementById("totalCarrito");
+      const contador = document.getElementById("contadorCarrito");
+
+      lista.innerHTML = "";
+      let totalPrecio = 0;
+
+      carrito.forEach(p => {
+        lista.innerHTML += `<li class="list-group-item d-flex justify-content-between">${p.nombre} <span>${p.precio} €</span></li>`;
+        totalPrecio += p.precio;
+      });
+
+      total.textContent = totalPrecio;
+      contador.textContent = carrito.length;
+    }
+
+    function toggleCarrito() {
+      const carritoDiv = document.getElementById("carrito");
+      carritoDiv.style.display = carritoDiv.style.display === "none" ? "block" : "none";
+    }
+
+    function vaciarCarrito() {
+      carrito.length = 0;
+      actualizarCarrito();
+    }
+
+    // Inicializar productos
+    renderProductos();
+  </script>
+</body>
+</html>
