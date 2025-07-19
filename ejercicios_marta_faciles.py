@@ -1,53 +1,52 @@
 # -------------------------------------------------------------------------------------------
-# * EJERCICIO 1: ¿Quién trae dulces?
+# PROYECTO: Crear un restaurante Burger King con clases en Python
+# Nivel: Fácil | Objetivo: Practicar clases, atributos, métodos y herencia
 # -------------------------------------------------------------------------------------------
 
-def merienda_dulces():
-    # Lista de nombres de amigas que traen dulces
-    amigas_con_dulces = []
+# -------------------------------------------------------------------------------------------
+# * CLASE PRINCIPAL: Restaurante
+# TODO: Crea una clase llamada Restaurante que tenga:
+#   - Atributos: nombre, ciudad, tipo_comida
+#   - Método: mostrar_informacion (muestra los datos del restaurante)
+#   - Método: abrir (imprime un mensaje que diga que el restaurante está abierto)
+# -------------------------------------------------------------------------------------------
 
-    # Preguntamos a 3 amigas qué traen
-    for i in range(3):
-        nombre = input(f"Nombre de la amiga {i + 1}: ")
-        comida = input(f"¿Qué ha traído {nombre}? ")
+# class Restaurante:
+#     def __init__(...):
+#         # Guardar los valores en atributos
 
-        # Comprobamos si lo que trae es un dulce
-        if comida.lower() in ["caramelos", "pastel", "chocolate"]:
-            amigas_con_dulces.append(nombre)
+#     def mostrar_informacion(self):
+#         # Imprimir el nombre, ciudad y tipo de comida del restaurante
 
-    # Mostramos el resultado
-    if len(amigas_con_dulces) > 0:
-        print("Estas amigas han traído dulces:")
-        for amiga in amigas_con_dulces:
-            print(f"- {amiga}")
-        print("¡Habrá dulces en la merienda! 🎉")
-    else:
-        print("No hay dulces... 😢")
-
-# Llamamos a la función para probarla
-# merienda_dulces()
+#     def abrir(self):
+#         # Mostrar mensaje como "¡El restaurante está abierto!"
 
 
 # -------------------------------------------------------------------------------------------
-# * EJERCICIO 2: Lista de pelis favoritas
+# * CLASE HEREDADA: BurgerKing
+# TODO: Crea una clase llamada BurgerKing que herede de Restaurante
+#   - Atributo adicional: tiene_autopedido (True o False)
+#   - Método especial: promocion (imprime "Hoy: menú Whopper por solo 4,99 €")
+#   - Sobrescribe el método mostrar_informacion para mostrar también si tiene autopedido
 # -------------------------------------------------------------------------------------------
 
-def pelis_favoritas():
-    # Lista vacía para las películas que cumplen la condición
-    lista_final = []
+# class BurgerKing(Restaurante):
+#     def __init__(...):
+#         # Llamar al constructor de la clase madre y añadir el atributo tiene_autopedido
 
-    # Pedimos 4 películas
-    for i in range(4):
-        peli = input(f"Nombre de la película {i + 1}: ")
+#     def mostrar_informacion(self):
+#         # Mostrar la información normal + si tiene autopedido
 
-        # Solo añadimos si tiene más de 5 letras
-        if len(peli) > 5:
-            lista_final.append(peli)
+#     def promocion(self):
+#         # Mostrar mensaje especial de promoción
 
-    # Mostramos la lista final
-    print("Películas favoritas (con más de 5 letras):")
-    for peli in lista_final:
-        print(f"- {peli}")
 
-# Llamamos a la función para probarla
-# pelis_favoritas()
+# -------------------------------------------------------------------------------------------
+# * PRUEBA DEL CÓDIGO (Cuando todo esté hecho)
+# TODO: Crea un objeto de tipo BurgerKing y llama a los métodos para ver si funciona
+# -------------------------------------------------------------------------------------------
+
+# restaurante1 = BurgerKing("Burger King Plaza", "Madrid", "hamburguesas", True)
+# restaurante1.mostrar_informacion()
+# restaurante1.abrir()
+# restaurante1.promocion()
